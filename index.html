@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Happy Birthday Sharanbasu</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle { 
+            0%, 100% { opacity: 0.3; transform: scale(1); } 
+            50% { opacity: 1; transform: scale(1.2); } 
+        }
+
+        .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
+        .active { display: flex; animation: fadeIn 1s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Realistic Circular Cake */
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            margin: 50px auto;
+            cursor: pointer;
+        }
+
+        .cake-body {
+            width: 220px;
+            height: 220px;
+            background: #4d2c19;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6), inset 0 0 20px #2d1a0f;
+            display: flex;
+            transition: transform 2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .icing-top {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 80%;
+            height: 80%;
+            background: #fff;
+            border-radius: 50%;
+            border: 5px dotted #f43f5e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sticker {
+            color: #f43f5e;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-align: center;
+            transform: rotate(-10deg);
+            background: rgba(255,255,255,0.8);
+            padding: 5px;
+            border-radius: 5px;
+            border: 2px solid #f43f5e;
+        }
+
+        .half {
+            width: 50%;
+            height: 100%;
+            background: #4d2c19;
+            transition: transform 2.5s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-half { border-radius: 110px 0 0 110px; border-right: 1px solid #361e11; }
+        .right-half { border-radius: 0 110px 110px 0; }
+
+        .cutting .left-half { transform: translateX(-80px) translateY(-20px) rotate(-15deg); }
+        .cutting .right-half { transform: translateX(80px) translateY(20px) rotate(15deg); }
+
+        /* Knife Animation */
+        .knife {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            width: 6px;
+            height: 120px;
+            background: linear-gradient(to bottom, #bdc3c7, #2c3e50);
+            border-radius: 3px;
+            z-index: 50;
+            display: none;
+            transform: translateX(-50%);
+        }
+
+        .anim-cut .knife {
+            display: block;
+            animation: sliceDown 1.2s forwards;
+        }
+
+        @keyframes sliceDown {
+            0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+            50% { transform: translateX(-50%) translateY(150px) rotate(5deg); }
+            100% { transform: translateX(-50%) translateY(300px); opacity: 0; }
+        }
+
+        .btn {
+            background: #fbbf24;
+            color: #1e1b4b;
+            padding: 16px 36px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        #typed-message {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #fbbf24;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stars"></div>
+
+    <div id="screen1" class="screen active">
+        <h1 style="font-size: 3rem; color:#fbbf24;">Happy Birthday Sharanbasu!</h1>
+        <p>Something special for my best friend...</p>
+        <button class="btn" onclick="nextScreen(1, 2)">Start Celebration</button>
+    </div>
+
+    <div id="screen2" class="screen">
+        <h2>Blow the candle, Jaan!</h2>
+        <div class="cake-container" onclick="blowCandle()">
+            <div class="cake-body">
+                <div class="icing-top">
+                    <div class="sticker">HAPPY BIRTHDAY<br>TO YOU!</div>
+                </div>
+                <div id="candle" style="width:10px; height:45px; background:linear-gradient(white, #3b82f6); position:absolute; top:20px; left:105px; z-index:100;">
+                    <div id="flame" style="width:16px; height:22px; background:orange; border-radius:50%; position:absolute; top:-20px; left:-3px; box-shadow:0 0 15px orange; animation: twinkle 0.3s infinite;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="screen3" class="screen">
+        <h2>Cut your birthday cake!</h2>
+        <div id="cakeBox" class="cake-container" onclick="startCutting()">
+            <div class="knife"></div>
+            <div class="cake-body">
+                <div class="left-half half">
+                    <div class="icing-top" style="left:20%; width:160%;"><div class="sticker">HAPPY</div></div>
+                </div>
+                <div class="right-half half">
+                    <div class="icing-top" style="left:-80%; width:160%;"><div class="sticker">BIRTHDAY</div></div>
+                </div>
+            </div>
+        </div>
+        <p id="status">Tap to cut</p>
+    </div>
+
+    <div id="screen4" class="screen">
+        <h1 style="color:#f43f5e;">20 Years of Greatness!</h1>
+        <div id="typed-message"></div>
+        <button class="btn" style="margin-top:30px;" onclick="location.reload()">Back to Start</button>
+    </div>
+
+    <script>
+        // Star Background
+        for (let i = 0; i < 80; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.width = star.style.height = Math.random() * 3 + 'px';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById('stars').appendChild(star);
+        }
+
+        const myMsg = "Wishing you a happy wala birthday my jaan, live long and healthy and wealth life. 🥰😍😘\n\nYou are a true gem in my life. May this special day bring you as much happiness as you give to everyone around you!";
+
+        function nextScreen(cur, next) {
+            document.getElementById('screen' + cur).classList.remove('active');
+            document.getElementById('screen' + next).classList.add('active');
+        }
+
+        function blowCandle() {
+            document.getElementById('flame').style.display = 'none';
+            setTimeout(() => nextScreen(2, 3), 1000);
+        }
+
+        function startCutting() {
+            const cakeBox = document.getElementById('cakeBox');
+            cakeBox.classList.add('anim-cut');
+            document.getElementById('status').innerText = "Slicing...";
+
+            setTimeout(() => {
+                cakeBox.querySelector('.cake-body').classList.add('cutting');
+            }, 800);
+
+            setTimeout(() => {
+                nextScreen(3, 4);
+                typeOut();
+            }, 6000);
+        }
+
+        let charIdx = 0;
+        function typeOut() {
+            if (charIdx < myMsg.length) {
+                document.getElementById("typed-message").innerHTML += myMsg.charAt(charIdx);
+                charIdx++;
+                setTimeout(typeOut, 50);
+            }
+        }
+    </script>
+</body>
+</html>
